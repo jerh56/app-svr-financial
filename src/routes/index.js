@@ -259,4 +259,5 @@ router.post("/register", async (req, res) => {
   // Our register logic ends here
 });
 
+
 module.exports = router;
