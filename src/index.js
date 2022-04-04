@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
+const mongoose = require("mongoose");
+require("dotenv").config();
+const { MONGO_URI } = process.env;
 
 //Configuraciones
 app.set('port', process.env.PORT || 3000);
@@ -10,6 +13,15 @@ app.set('json spaces', 2);
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+
+mongoose.connect(MONGO_URI,{ });
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error: "));
+db.once("open", function () {
+  console.log("Connected successfully");
+});
 
 //Routes
 app.use(require('./routes/index'));
