@@ -44,7 +44,7 @@ router.get('/customer', async (req, res) => {
 
   // read rows
   const rows = await sheet.getRows(); // can pass in { limit, offset }
-  console.log(rows[0].ID);
+  console.log(rows[0].customerID);
   console.log(rows[0].firstName);
 
 
@@ -114,7 +114,7 @@ router.post("/login", async (req, res) => {
     for (let i = 0; i < rowCount; i++) {
       if (rows[i].email == email) {
           bFound = true;
-          user._id = rows[i].ID;
+          user._id = rows[i].customerID;
           user.password = rows[i].key;
           user.firstName = rows[i].firstName
           break;
@@ -135,8 +135,21 @@ router.post("/login", async (req, res) => {
       // save user token
       user.token = token;
 
+      const sheet2 = doc.sheetsByIndex[3]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
+      // read rows
+      const rows2 = await sheet2.getRows({ limit: 100, offset: 0 }); // can pass in { limit, offset }
+      bFound = false;
+      rowCount = rows2.length;
+      let ticketCount = 0;
+      for (let i = 0; i < rowCount; i++) {
+        console.log(rows2[i].investmentID);
+        if (rows2[i].customerID == user._id) {
+            ticketCount++;
+        }
+      }
+
       // user
-      res.status(200).json(user);
+      res.redirect("https://mholding.herokuapp.com/principal/?username="+ user.firstName +"&tickets=" + ticketCount ).status(200).json(user);
     }
     res.status(400).send("Invalid Credentials");
   } catch (err) {
@@ -186,7 +199,7 @@ router.post("/register", async (req, res) => {
 
     // read rows
     const rows = await sheet.getRows({ limit: 100, offset: 0 }); // can pass in { limit, offset }
-    console.log(rows[0].ID);
+    console.log(rows[0].customerID);
     console.log(rows[0].firstName);
 
     console.log(rows);
@@ -196,9 +209,9 @@ router.post("/register", async (req, res) => {
     let user = { _id: "", token: "" };
     let rowCount = rows.length;
     for (let i = 0; i < rowCount; i++) {
-      console.log(rows[i].ID.valueType);
+      console.log(rows[i].customerID.valueType);
 
-      if (rows[i].ID === undefined) {
+      if (rows[i].customerID === undefined) {
         break;
       }
       else {
@@ -207,10 +220,10 @@ router.post("/register", async (req, res) => {
         console.log("correo:", email);
         if (emailhc == email) {
           bFound = true;
-          user._id = rows[i].ID;
+          user._id = rows[i].customerID;
           break;
         }
-        console.log(rows[i].ID);
+        console.log(rows[i].customerID);
         console.log(rows[i].firstName);
         console.log(rows[i].email);
       }

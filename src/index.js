@@ -14,7 +14,6 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-
 mongoose.connect(MONGODB_URI || process.env.MONGODB_URI,{ });
 
 const db = mongoose.connection;
