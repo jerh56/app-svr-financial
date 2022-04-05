@@ -3,7 +3,7 @@ const app = express();
 const morgan = require('morgan');
 const mongoose = require("mongoose");
 require("dotenv").config();
-const { MONGO_URI } = process.env;
+const { MONGODB_URI } = process.env;
 
 //Configuraciones
 app.set('port', process.env.PORT || 3000);
@@ -14,8 +14,7 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-
-mongoose.connect(MONGO_URI || process.env.MONGO_URI,{ });
+mongoose.connect(MONGODB_URI || process.env.MONGODB_URI,{ });
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
