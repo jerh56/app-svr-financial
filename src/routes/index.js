@@ -149,7 +149,7 @@ router.post("/login", async (req, res) => {
       }
 
       // user
-      res.redirect("https://mholding.herokuapp.com/principal/?username="+ user.firstName +"&tickets=" + ticketCount ).status(200).json(user);
+      res.redirect("https://mholding.herokuapp.com/principal/?username="+ user.firstName +"&tickets=" + ticketCount + "&customerid=" + user._id).status(200).json(user);
     }
     res.status(400).send("Invalid Credentials");
   } catch (err) {
