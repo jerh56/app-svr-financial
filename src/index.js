@@ -14,8 +14,16 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+app.use(function(req, res, next) {
+  // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  next();
+  });
 
-mongoose.connect(MONGO_URI || process.env.MONGO_URI,{ });
+
+mongoose.connect(MONGO_URI || process.env.MONGO_URI);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
