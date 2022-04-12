@@ -14,6 +14,15 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+// CORS enabled
+app.use(function(req, res, next) {
+  // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  next();
+ });
+
 mongoose.connect(MONGODB_URI || process.env.MONGODB_URI,{ });
 
 const db = mongoose.connection;
