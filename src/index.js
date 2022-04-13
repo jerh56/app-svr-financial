@@ -3,7 +3,7 @@ const app = express();
 const morgan = require('morgan');
 const mongoose = require("mongoose");
 require("dotenv").config();
-const { MONGO_URI } = process.env;
+const { MONGODB_URI } = process.env;
 
 //Configuraciones
 app.set('port', process.env.PORT || 3000);
