@@ -516,11 +516,11 @@ let investment_projectID =  req.query.investment_projectID
   for (let i = 0; i < rowCount; i++) {
     console.log(rows[i].investment_projectID);
     if (rows[i].investment_projectID == investment_projectID) {
-      tickets.ticketID = rows[i].ticketID;
-      tickets.investment_projectID = rows[i].investment_projectID;
-      tickets.customerID = rows[i].customerID;
-      tickets.ticketAmount = rows[i].ticketAmount;
-      tickets.available = rows[i].available;
+      ticket.ticketID = rows[i].ticketID;
+      ticket.investment_projectID = rows[i].investment_projectID;
+      ticket.customerID = rows[i].customerID;
+      ticket.ticketAmount = rows[i].ticketAmount;
+      ticket.available = rows[i].available;
       tickets.push(ticket);
       ticket = { ticketID: "", investment_projectID: "", customerID: "", ticketAmount: "", available: ""  };
     }
