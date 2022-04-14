@@ -408,7 +408,7 @@ router.get('/proyectos', async (req, res) => {
   const rows = await sheet.getRows({ limit: 100, offset: 0 }); // can pass in { limit, offset }
   //let bFound = false;
   let projects = [];
-  let project = { investment_projectID: "", name: "", ticketQuantity: "", ticketAmount: "", yearlyRate: "" };
+  let project = { investment_projectID: "", name: "", ticketQuantity: "", projectAmount: "", yearlyRate: "" };
   let rowCount = rows.length;
   let projectCount = 0;
   for (let i = 0; i < rowCount; i++) {
@@ -418,10 +418,10 @@ router.get('/proyectos', async (req, res) => {
     project.name = rows[i].name;
     project.ticketQuantity = rows[i].ticketQuantity;
     project.yearlyRate = rows[i].yearlyRate;
-    project.ticketAmount = rows[i].ticketAmount;
+    project.projectAmount = rows[i].projectAmount;
     console.log(project);
     projects.push(project);
-    project = { investment_projectID: "", name: "", ticketQuantity: "", ticketAmount: "", yearlyRate: "" };
+    project = { investment_projectID: "", name: "", ticketQuantity: "", projectAmount: "", yearlyRate: "" };
   }
   res.status(200).json(projects);
 });
